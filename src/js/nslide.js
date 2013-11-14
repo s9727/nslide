@@ -7,7 +7,7 @@
  * @param banners バナーデータのオブジェクト { imgpath, url }
  * @param options option
 */
-var Slide = function (slideId, banners, options) {
+var NSlide = function (slideId, banners, options) {
     this.banners = banners; // バナーデータ
     this.slideId = slideId; // スライドを表示する要素のID
     this.current = 1;   // バナー番号
@@ -33,7 +33,7 @@ var Slide = function (slideId, banners, options) {
                         + this.duration + 'ms; -webkit-transition-duration : ' + this.duration + 'ms;';
 };
 // 初期化
-Slide.prototype = {
+NSlide.prototype = {
     slide : function()
     {
         // パラメータから動的にバナーとメニューを用意する
@@ -86,7 +86,7 @@ Slide.prototype = {
     {
         // CSSで移動
         var slidex = -(this.slideWidth * (this.current - 1));
-        var css = this.baseCss + '-webkit-transform : translateX('  + slidex +  'px); -moz-transform: translateX('  + slidex +  'px); ';
+        var css = this.baseCss + 'transform : translate(' + slidex + 'px, 0); -webkit-transform : translateX(' + slidex + 'px); -moz-transform: translateX('  + slidex +  'px); ';
         document.getElementById('slide_' + this.slideId).setAttribute("style", css);
 
         // 表示するスライドの番号のメニューCSSを変更する
@@ -97,7 +97,7 @@ Slide.prototype = {
             if (el instanceof Element) {
                 if (parseInt(el.getAttribute('data-num')) == this.current ) {
                     el.className = 'active';
-                }　else {
+                } else {
                     el.className = "";
                 }
             }
